@@ -7,7 +7,7 @@ Projeto de aplicativo usando React-native, Flask Microservices, Python e Postgre
 <br/>
 2 - `git clone https://github.com/josethz00/help_seniors_mobile.git`
 <br/>
-<h5>3 - Entre na pasta do projeto</h5>
+<b>3 - Entre na pasta do projeto</b>
 <br/>
 4 - `yarn install` ou `npm install`
 <br/>
