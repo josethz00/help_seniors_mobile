@@ -27,11 +27,7 @@ const MainRoutes = ()=>{
                 gestureEnabled: true,
                 headerTransparent: true,
                 headerStyle: {
-                    height: 78,
-                    borderWidth: 0,  
-                },
-                headerTitleStyle: {
-                    fontWeight: 'bold',
+                    height: 78
                 },
                 headerTitleAlign: 'center',
                 headerBackTitleVisible: false
@@ -40,6 +36,7 @@ const MainRoutes = ()=>{
                 <Stack.Screen
                     name='Home'
                     options={({ route }) => ({
+                        headerLeft:  null,
                         headerTitle: ()=>
                         <View style={{flex:1, alignItems: 'center', marginTop: 3}}>
                             <Image source={require('../assets/images/logo.png')} style={{width: 44, height: 44}}  />
@@ -58,6 +55,7 @@ const MainRoutes = ()=>{
                 <Stack.Screen
                     name='Sections'
                     options={({ route }) => ({
+                        headerLeft:  null,
                         headerTitle: ()=>
                         <View style={{flex:1, alignItems: 'center', marginTop: 3}}>
                             <Image source={require('../assets/images/logo.png')} style={{width: 44, height: 44}}  />
@@ -71,6 +69,7 @@ const MainRoutes = ()=>{
                 <Stack.Screen
                     name='Modal'
                     options={({ route }) => ({
+                        headerLeft:  null,
                         headerShown: false,
                         headerTitle: ()=>
                         <View style={{flex:1, alignItems: 'center', marginTop: 3}}>
@@ -85,6 +84,7 @@ const MainRoutes = ()=>{
                 <Stack.Screen
                     name='MapModal'
                     options={({ route }) => ({
+                        headerLeft:  null,
                         headerShown: false,
                         headerTitle: ()=>
                         <View style={{flex:1, alignItems: 'center', marginTop: 3}}>
@@ -137,6 +137,7 @@ const Tabs = ({
                             borderRadius: 60,
                             marginBottom: 15,
                             marginHorizontal: 20,
+                            marginTop: 25
                         }
                     }}
             >
