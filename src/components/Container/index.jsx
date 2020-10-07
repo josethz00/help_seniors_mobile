@@ -1,13 +1,11 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native'; 
+import { StyleSheet, View } from 'react-native'; 
 
-const Container = () => {
+const Container = ({children}) => {
 
     return(
         <View style={styles.container}>
-            <Text>
-
-            </Text>
+            {children}
         </View>
     );
 
@@ -16,9 +14,8 @@ const Container = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingHorizontal: 24,
-        paddingVertical: 10,
-        margin: 10,
+        paddingHorizontal: 20,
+        top: 90
     }
 });
 
