@@ -36,7 +36,7 @@ const Cases = ()=>{
             <Header />
             <Text style={styles.sectionName}>SETOR: @SAÚDE</Text>
             <FlatList showsVerticalScrollIndicator={false} contentContainerStyle={styles.list} data={dataList} renderItem={({item}) => (
-                <CasesCard />
+                <CasesCard key={item.id} />
             )}/>
         </Container>
     );

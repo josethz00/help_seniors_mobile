@@ -17,7 +17,7 @@ import Sections from '../screens/Sections';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const MainRoutes = ()=>{
+const MainRoutes = () => {
 
     return(
         <NavigationContainer>

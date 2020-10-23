@@ -1,14 +1,16 @@
-import React from 'react';
-import { View } from 'react-native';
+import React, { useContext } from 'react';
+import { Button } from 'react-native';
+import Container from '../../components/Container';
 
-const SignIn = ()=>{
+import AuthContext from '../../hooks/useAuth';
 
-    return(
-        <View>
+export default function SignIn() {
+  
+    const { signIn } = useContext(AuthContext);
 
-        </View>
+    return (
+        <Container>
+            <Button onPress={signIn} title='Sign in' />
+        </Container>
     );
-
 }
-
-export default SignIn;

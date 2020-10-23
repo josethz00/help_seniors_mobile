@@ -11,10 +11,10 @@ const Sections = ()=>{
     const navigation = useNavigation();
 
     const dataList = [
-                        {text: <Text style={styles.filterTitle}>Saúde</Text>, name: <MaterialCommunityIcons size={64} name="medical-bag"/>}, 
-                        {text: <Text style={styles.filterTitle}>Compras</Text>, name: <MaterialCommunityIcons size={64} name="cart" />}, 
-                        {text: <Text style={styles.filterTitle}>Social</Text>, name: <Image style={{width: 67, height: 67}} source={require('../../assets/images/talking.png')} />}, 
-                        {text: <Text style={styles.filterTitle}>Mudanças</Text>, name: <Entypo size={64} name="box" />}
+                        {id: 1, text: <Text style={styles.filterTitle}>Saúde</Text>, name: <MaterialCommunityIcons size={64} name="medical-bag"/>}, 
+                        {id: 2, text: <Text style={styles.filterTitle}>Compras</Text>, name: <MaterialCommunityIcons size={64} name="cart" />}, 
+                        {id: 3, text: <Text style={styles.filterTitle}>Social</Text>, name: <Image style={{width: 67, height: 67}} source={require('../../assets/images/talking.png')} />}, 
+                        {id: 4, text: <Text style={styles.filterTitle}>Mudanças</Text>, name: <Entypo size={64} name="box" />}
                     ];
 
     return(
@@ -24,9 +24,10 @@ const Sections = ()=>{
             <FlatList
                     contentContainerStyle={styles.filtersContainer}
                     data={dataList}
+                    keyExtractor={(item, index) => item.id}
                     renderItem={({item}) => (
-                        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-                            <View key={item.id} style={styles.filters}>
+                        <TouchableOpacity key={item.id} onPress={() => navigation.navigate('Home')}>
+                            <View style={styles.filters}>
                                 {item.name}
                                 {item.text}
                             </View>
