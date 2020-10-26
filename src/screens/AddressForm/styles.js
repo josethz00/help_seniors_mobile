@@ -13,9 +13,28 @@ const styles = StyleSheet.create({
     input: {
         borderRadius: 60,
         marginBottom: 5,
-        paddingLeft: 15,
+        paddingLeft: 5,
         width: '90%',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+    },
+    selectUf: {
+        backgroundColor: '#fff',
+        marginBottom: 5,
+        width: '30%',
+        fontWeight: 'bold',
+        elevation: 20,
+        paddingLeft: 5,
+        borderRadius: 60
+    },
+    selectCity: {
+        backgroundColor: '#fff',
+        marginBottom: 5,
+        marginLeft: 10,
+        paddingLeft: 5,
+        width: '70%',
+        fontWeight: 'bold',
+        elevation: 20,
+        borderRadius: 60
     },
     inputWrapper: {
         width: '100%',
@@ -26,6 +45,13 @@ const styles = StyleSheet.create({
         padding: 10,
         elevation: 20,
         borderRadius: 60,
+        marginBottom: 25,
+    },
+    selectWrapper: {
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
         marginBottom: 25,
     },
     button: {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from 'expo-vector-icons';
 
@@ -18,6 +18,7 @@ const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const MainRoutes = () => {
+    
 
     return(
         <NavigationContainer>
@@ -69,12 +70,7 @@ const MainRoutes = () => {
                 <Stack.Screen
                     name='Modal'
                     options={({ route }) => ({
-                        headerLeft:  null,
-                        headerShown: false,
-                        headerTitle: ()=>
-                        <View style={{flex:1, alignItems: 'center', marginTop: 3}}>
-                            <Image source={require('../assets/images/logo.png')} style={{width: 44, height: 44}} />
-                        </View>,
+                        headerShown: false
                     })}
                 >
                     {props=>
@@ -132,7 +128,7 @@ const Tabs = ({
                             backgroundColor,
                             height: 60,
                             borderWidth: 0,  
-                            elevation: 8,
+                            elevation: 10,
                             shadowOpacity: 0,
                             borderRadius: 60,
                             marginBottom: 15,

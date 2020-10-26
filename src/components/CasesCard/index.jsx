@@ -8,12 +8,14 @@ import check from '../../assets/animations/check.json';
 import styles from './styles';
 
 
-const CasesCard = () => {
+const CasesCard = ({ icon, commandText } ) => {
 
     let text = 'Esse cillum ullamco deserunt elit pariatur ut commodo est ex aliqua adipisicing Et et reprehenderit do aute ut sint sunt exercitation in Dolore eu id amet sit tempor nisi sunt in eu dolor esse.'
     const [animation, setAnimation] = useState(false);
 
     function sendOffer () {
+        if (commandText !== 'Oferecer ajuda') 
+            return false; 
         setAnimation(true);
         new Promise((resolve) => {
             setTimeout(resolve, 1600);
@@ -38,8 +40,8 @@ const CasesCard = () => {
                     {text.length > 160 ? text.slice(0, 160) + '  ...' : text}
                 </Text>
                 <TouchableOpacity style={styles.action} onPress={sendOffer} >
-                    <Text style={styles.actionText}>Oferecer ajuda</Text>
-                    {animation ? <Lottie source={check} style={styles.animation} autoPlay loop resizeMode="contain" /> : <Ionicons name="ios-arrow-dropright" size={20} color="#fff" />}
+                    <Text style={styles.actionText}>{commandText}</Text>
+                    {animation ? <Lottie source={check} style={styles.animation} autoPlay loop resizeMode="contain" /> : <Ionicons name={icon} size={20} color="#fff" />}
                 </TouchableOpacity>
             </View>
         </LinearGradient>
