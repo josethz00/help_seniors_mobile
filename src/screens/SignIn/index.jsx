@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import AuthContext from '../../hooks/useAuth';
 import styles from './styles';
 
-export default function SignIn() {
+const SignIn = () => {
   
     const navigation = useNavigation();
     const { signIn } = useContext(AuthContext);
@@ -63,4 +63,6 @@ export default function SignIn() {
             </Animated.View>
         </AuthContainer>
     );
-}
+};
+
+export default SignIn;

@@ -1,15 +1,13 @@
-import React, { useRef } from 'react';
+import React, { forwardRef } from 'react';
 import { TextInput } from 'react-native';
 
 
-const Input = ( { placeholder, ...rest } ) => {
-
-    const inputRef = useRef(null);
+const Input = ( { ...rest }, ref ) => {
 
     return (
-        <TextInput ref={inputRef} {...rest} placeholder={placeholder} required />
+        <TextInput {...rest} ref={ref} />
     );
 
 };
 
-export default Input;
+export default forwardRef(Input);
