@@ -61,7 +61,7 @@ const SignUp = () => {
             console.log(err.response.data)
             alert('Não foi possível realizar o cadastro')
         });
-        api.defaults.headers.authorization = data;
+        api.defaults.headers.colab_id = data;
     }
 
     function validateData (data) {
@@ -110,7 +110,6 @@ const SignUp = () => {
                         onChangeText={text => nameInputRef.current.value = text} 
                         style={styles.input} 
                         placeholder="Nome" 
-                        autoCapitalize="none" 
                     />
                 </Animated.View>
                 <Animated.View style={[styles.inputWrapper, { opacity: fadeAnim, borderWidth: errors.email ? 1.3: 0, borderColor: errors.email ? '#ff2401': null }]}>

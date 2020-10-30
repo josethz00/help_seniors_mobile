@@ -8,14 +8,32 @@ import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import styles from './styles';
 import Input from '../../components/Input';
+import MaskedInput from '../../components/MaskedInput';
+import api from '../../services/api';
+import { useGeolocation } from '../../hooks/useGeoLocation';
 
 const AddressForm = () => {
   
     const navigation = useNavigation();
+    const { latitude, longitude } = useGeolocation();
+
     const [ufs, setUfs] = useState([]);
     const [cities, setCities] = useState([]);
     const [selectedCity, setSelectedCity] = useState('0');
     const [selectedUf, setSelectedUf] = useState('0');
+    const [number,  setNumber] = useState(null);
+    const [errors, setErrors] = useState({
+        city: false,
+        latitude: false, 
+        longitude: false,
+        complement: false,
+        street: false,
+        number: false,
+    });
+
+
+    const streetInputRef = useRef(null);
+    const complementInputRef = useRef(null);
 
     const fadeAnim = useRef(new Animated.Value(0)).current;
 
@@ -27,13 +45,58 @@ const AddressForm = () => {
         }).start();
     };
 
-    function createAccount () {
-        navigation.navigate('SignIn');
+    function createAddress () {
+        const addressData = {
+            city: `${selectedCity - selectedUf}`,
+            latitude, 
+            longitude,
+            complement: complementInputRef.current.value,
+            street: streetInputRef.current.value,
+            number,
+            colab_id: api.defaults.headers.colab_id
+        };
+        const hasErrors = validateData(addressData);
+        if (hasErrors)
+            return true;
+        api.post('colabs/address/store', addressData).then(() => {
+            navigation.navigate('SignIn');
+        }).catch((err) => {
+            alert('Não foi possível realizar o cadastro')
+        });
+    }
+
+    function validateData (data) {
+
+        let err = {};
+
+        if (!data.city || data.city.length < 6 || data.city.length > 60) {
+            err.city = true;
+        }
+        if (!data.latitude) {
+            err.latitude = true;
+        }
+        if (!data.longitude) {
+            err.longitude = true;
+        }
+        if (data.complement.length > 25) {
+            err.complement = true;
+        }
+        if (!data.street || data.street > 70) {
+            err.street = true;
+        }
+        if (!data.number || data.number.length > 5) {
+            err.number = true;
+        }
+        if(Object.keys(err).length !== 0) {
+            setErrors(err);
+            return true;
+        }
+        return false;
+
     }
 
     useEffect(() => {
         fadeIn();
-        alert('Agora que se cadastrou, só falta o seu endereço')
     }, []);
 
     useEffect(()=>{
@@ -73,19 +136,19 @@ const AddressForm = () => {
                         </Picker>
                     </View>
                 </Animated.View>
-                <Animated.View style={[styles.inputWrapper, { opacity: fadeAnim }]}>
-                    <Input style={styles.input} placeholder="Rua"  autoCapitalize="none" />
+                <Animated.View style={[styles.inputWrapper, { opacity: fadeAnim, borderWidth: errors.street ? 1.3: 0, borderColor: errors.street ? '#ff2401': null }]}>
+                    <Input style={styles.input} ref={streetInputRef} onChangeText={text => streetInputRef.current.value = text} placeholder="Rua" maxLength={70} />
                 </Animated.View>
-                <Animated.View style={[styles.inputWrapper, { opacity: fadeAnim }]}>
-                    <Input style={styles.input} placeholder="Número"  autoCapitalize="none" keyboardType="number-pad" />
+                <Animated.View style={[styles.inputWrapper, { opacity: fadeAnim, borderWidth: errors.number ? 1.3: 0, borderColor: errors.number ? '#ff2401': null }]}>
+                    <MaskedInput value={number} mask="number" style={styles.input} inputMaskChange={(text) => setNumber(text)}  placeholder="Número" keyboardType="number-pad" maxLength={5} />
                 </Animated.View>
-                <Animated.View style={[styles.inputWrapper, { opacity: fadeAnim }]}>
-                    <Input style={styles.input} placeholder="Complemento"  autoCapitalize="none" />
+                <Animated.View style={[styles.inputWrapper, { opacity: fadeAnim, borderWidth: errors.complement ? 1.3: 0, borderColor: errors.complement ? '#ff2401': null }]}>
+                    <Input style={styles.input} ref={complementInputRef} onChangeText={text => complementInputRef.current.value = text} placeholder="Complemento" autoCapitalize="none" maxLength={25} />
                 </Animated.View>
             </Animated.View>
             <Animated.View style={[styles.loginSection, { opacity: fadeAnim }]}>
                 <Text style={styles.enter}>Cadastrar</Text>
-                <RectButton onPress={() => createAccount()} style={styles.button} >
+                <RectButton onPress={createAddress} style={styles.button} >
                     <Feather name="arrow-right-circle" size={35} color="#fff" style={styles.buttonText} />
                 </RectButton>
             </Animated.View>

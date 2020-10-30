@@ -6,43 +6,26 @@ import styles from './styles';
 import { RectButton } from 'react-native-gesture-handler';
 import { Feather } from 'expo-vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { useGeolocation } from '../../hooks/useGeoLocation';
 
 
 const MapModal = () => {
 
-    const [initialPosition, setInitialPosition] = useState([0, 0]);
+    const { latitude, longitude } = useGeolocation();
     const navigation = useNavigation()
-
-    useEffect(()=>{
-        async function loadPosition(){
-
-            const { status } = await Location.requestPermissionsAsync();
-
-            if(status!=='granted'){
-                Alert.alert('Oooops', 'Precisamos da sua permissão para obter a localização');
-                return;
-            }
-            const location = await Location.getCurrentPositionAsync();
-            const { latitude, longitude } = location.coords;
-            setInitialPosition([latitude, longitude]);
-        }
-
-        loadPosition();
-
-    }, []);
     
     return(
         <View>
             {
-                initialPosition[0] !== 0 && (
+                latitude !== 0 && (
                     <MapView 
                         provider={PROVIDER_GOOGLE} 
                         zoom={15}
                         style={styles.map} 
-                        initialRegion={{latitude: initialPosition[0], longitude: initialPosition[1], latitudeDelta:0.0055, longitudeDelta:0.0055}}
+                        initialRegion={{ latitude, longitude, latitudeDelta:0.0055, longitudeDelta:0.0055 }}
                     >
                         <Marker          
-                            coordinate={{latitude: initialPosition[0], longitude: initialPosition[1]}}
+                            coordinate={{ latitude, longitude }}
                             onPress={() => navigation.navigate('Modal')}
                         >
                             <View style={{ backgroundColor: '#fff', borderRadius: 16 }}>
