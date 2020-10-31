@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
+import api from '../../services/api';
 
 
 const AuthContext = createContext({signed:false, user:{}});
@@ -23,12 +24,17 @@ export const AuthProvider = ({ children }) => {
         loadStorageData();
     }, []);
 
-    async function signIn(){
-
-        const username = 'Josef Hasmussen';
-        setUser(username);
-        await AsyncStorage.setItem('@HS:user', JSON.stringify(username));
-        await AsyncStorage.setItem('@HS:token', 'TOKENDOHASMUSSEN');
+    async function signIn(email, password){
+        try {
+            const { data } = await api.post('auth?type=colab', { email, password });
+            await AsyncStorage.setItem('@HS:user', JSON.stringify(data.user));
+            await AsyncStorage.setItem('@HS:token', data.token);
+            api.defaults.headers.authorization = `Bearer ${data.token}`;
+            setUser(data.user);
+        }
+        catch (err) {
+            alert ('Não foi possível fazer login');
+        }
 
     }
     

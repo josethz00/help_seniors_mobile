@@ -47,7 +47,7 @@ const AddressForm = () => {
 
     function createAddress () {
         const addressData = {
-            city: `${selectedCity - selectedUf}`,
+            city: selectedCity + ' - ' + selectedUf,
             latitude, 
             longitude,
             complement: complementInputRef.current.value,
