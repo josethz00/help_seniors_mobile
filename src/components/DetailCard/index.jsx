@@ -19,7 +19,7 @@ const DetailCard = () => {
         >
             <View style={styles.cardHeader}>
                 <Text style={styles.title}>
-                    Compras no supermercado
+                    Compras no supermercado - 7.9km
                 </Text>
             </View>
             <View style={styles.body}>

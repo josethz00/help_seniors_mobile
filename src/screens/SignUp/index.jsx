@@ -59,7 +59,7 @@ const SignUp = () => {
             navigation.navigate('AddressForm');
         }).catch((err) => {
             console.log(err.response.data)
-            alert('Não foi possível realizar o cadastro')
+            alert('Não foi possível realizar o cadastro');
         });
         api.defaults.headers.colab_id = data;
     }
@@ -75,7 +75,7 @@ const SignUp = () => {
         if (!data.email || data.email.length < 12 || data.email.length > 60 || !emailRegex.test(data.email)) {
             err.email = true;
         }
-        if (!data.tel || data.tel.length < 8 || data.tel.length > 15) {
+        if (!data.tel || data.tel.length < 8 || data.tel.length > 16) {
             err.phone = true;
         }
         if (!data.password || data.password.length < 6 || data.password.length > 30) {

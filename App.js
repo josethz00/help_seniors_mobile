@@ -9,9 +9,9 @@ export default function App() {
   return (
       <>
         <StatusBar style="dark" animated backgroundColor="#f5f5f5"   />
-          <AuthProvider>
-            <Routes />
-          </AuthProvider>
+        <AuthProvider>
+          <Routes />
+        </AuthProvider>
       </>
   );
 }

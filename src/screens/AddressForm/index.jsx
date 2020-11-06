@@ -61,7 +61,7 @@ const AddressForm = () => {
         api.post('colabs/address/store', addressData).then(() => {
             navigation.navigate('SignIn');
         }).catch((err) => {
-            alert('Não foi possível realizar o cadastro')
+            alert('Não foi possível realizar o cadastro');
         });
     }
 
