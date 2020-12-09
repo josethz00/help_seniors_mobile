@@ -55,9 +55,8 @@ const SignUp = () => {
             return true;
         api.post('colabs/store', registerData).then((response) => {
             navigation.navigate('AddressForm', { colab_id: response.data });
-        }).catch((err) => {
+        }).catch(() => {
             alert('Não foi possível realizar o cadastro');
-            console.log(err.response.data)
         });
     }
 
