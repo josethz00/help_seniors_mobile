@@ -11,11 +11,10 @@ const Modal = ()=>{
     const navigation = useNavigation();
 
     const route = useRoute();
-    const { item } = route.params;
 
     function sendMail(){
         MailComposer.composeAsync({
-            subject:`Ajuda no Caso: ${item.title}`,
+            subject:`Ajuda no Caso: ${route.params.title}`,
             recipients: ['josethomaz2003@gmail.com'],
             body: 'Olá, me chamo José, estou enviando essa mensagem para combinar os detalhes da minha ajuda'
         })
@@ -44,19 +43,19 @@ const Modal = ()=>{
                         Idade:
                     </Text>
                     <Text style={styles.incidentValue}>
-                        {item.age}
+                        {route.params.age}
                     </Text>
                     <Text style={styles.incidentProperty}>
                         Caso:
                     </Text>
                     <Text style={styles.incidentValue}>
-                        {item.title}
+                        {route.params.title}
                     </Text>
                     <Text style={styles.incidentProperty}>
                         Descrição:
                     </Text>
                     <Text style={styles.incidentValue}>
-                        {item.description}
+                        {route.params.description}
                     </Text>  
                 </View>
                 <View style={styles.incident}>
@@ -64,23 +63,17 @@ const Modal = ()=>{
                         Cidade:
                     </Text>
                     <Text style={styles.incidentValue}>
-                        {item.city}
+                        {route.params.city}
                     </Text>
                     <Text style={styles.incidentProperty}>
                         Endereço:
                     </Text>
                     <Text style={styles.incidentValue}>
-                        {item.street} - nº {item.number}
+                        {route.params.street} - nº {route.params.number}
                     </Text>
-                    <Text style={styles.incidentProperty}>
-                        Complemento
-                    </Text>
-                    <Text style={styles.incidentValue}> 
-                        {item.complement}
-                    </Text>  
                 </View>
                 <View style={styles.contactBox}>
-                    <Text style={styles.heroTitle}>Salve o Dia!</Text>
+                    <Text style={styles.heroTitle}>Venha contribuir!</Text>
                     <Text style={styles.heroTitle}>Ajude a fazer o dia de alguém melhor.</Text>
 
                     <Text style={styles.heroDescription}>Entre em contato</Text>

@@ -69,7 +69,7 @@ const DetailCard = () => {
                 </View>
                 <View style={styles.body}>
                     <View style={styles.description}>
-                        <Image source={{ uri: 'https://images.unsplash.com/photo-1551861568-c0afa6653bc1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=100' }} style={styles.profilePicture} />
+                        <Image source={{ uri: 'https://images.unsplash.com/photo-1533101585792-27f81a845550?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=100' }} style={styles.profilePicture} />
                             <View>                       
                                 <View style={styles.infoWrapper}>
                                     <Text style={styles.infoText} >

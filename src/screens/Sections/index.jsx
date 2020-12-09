@@ -26,7 +26,7 @@ const Sections = () => {
             <FlatList
                     contentContainerStyle={styles.filtersContainer}
                     data={dataList}
-                    keyExtractor={(item, index) => item.id}
+                    keyExtractor={(item) => item.id}
                     renderItem={({item}) => (
                         <TouchableOpacity key={item.id} onPress={() => navigation.navigate('Home', {
                             screen: 'Cases',
