@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Image, Text, TouchableOpacity } from 'react-native';
 import { FontAwesome, Ionicons } from 'expo-vector-icons';
 import { RectButton } from 'react-native-gesture-handler';
@@ -7,21 +7,39 @@ import Header from '../../components/Header';
 import Container from '../../components/Container';
 import styles from './styles';
 import AuthContext from '../../hooks/useAuth';
+import { useCredentials } from '../../hooks/useCredentials';
+import api from '../../services/api';
 
 
 const Profile = ()=>{
 
-    const { signOut } = useContext(AuthContext);
+    const { userId, token } = useCredentials();
+    const [email, setEmail] = useState(null);
+    const { user, signOut } = useContext(AuthContext);
+
+    useEffect(() => {
+
+        if (userId && token) {
+            api.get(`colabs/find-one/${userId}`, {
+                headers: {
+                    authorization: token
+                }
+            }).then((response) => {
+                setEmail(response.data[0].email)
+            });
+        }
+
+    }, [userId, token]);
 
     return(
         <Container>
             <Header />
             <Image source={{ uri: 'https://avatars3.githubusercontent.com/u/50122248?s=460&u=e7c70333cc7b0816e2e6ac96eb17d4b346e8b21f&v=4' }} style={styles.profilePicture} />
             <Text style={styles.username}>
-                Josef Hasmussen
+                {user}
             </Text>
             <Text style={styles.email}>
-                jtsoares17@hotmail.com
+                {email}
             </Text>
             <RectButton style={styles.button}>
                 <Text style={styles.buttonText}>
@@ -29,7 +47,7 @@ const Profile = ()=>{
                 </Text>
                 <FontAwesome name="edit" size={30} color="#fff" />
             </RectButton>
-            <TouchableOpacity style={styles.accountContainer} onPress={signOut}>
+            <TouchableOpacity style={styles.accountContainer}>
                 <Text style={styles.accountText}>Seu plano:</Text>
                 <Text style={styles.account}>Usuário Lite</Text>
             </TouchableOpacity> 

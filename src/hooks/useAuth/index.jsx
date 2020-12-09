@@ -15,8 +15,9 @@ export const AuthProvider = ({ children }) => {
 
             const storagedUser = await AsyncStorage.getItem('@HS:user');
             const storagedToken = await AsyncStorage.getItem('@HS:token');
+            const storagedUserId = await AsyncStorage.getItem('@HS:user_id');
 
-            if(storagedUser && storagedToken){
+            if(storagedUser && storagedToken && storagedUserId){
                 setUser(JSON.parse(storagedUser));
             }
             setLoading(false);
@@ -29,6 +30,7 @@ export const AuthProvider = ({ children }) => {
             const { data } = await api.post('auth?type=colab', { email, password });
             await AsyncStorage.setItem('@HS:user', JSON.stringify(data.user));
             await AsyncStorage.setItem('@HS:token', data.token);
+            await AsyncStorage.setItem('@HS:user_id', JSON.stringify(data.id));
             api.defaults.headers.authorization = `Bearer ${data.token}`;
             setUser(data.user);
         }

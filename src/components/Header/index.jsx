@@ -1,17 +1,21 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { View, Image, Text, TouchableOpacity } from 'react-native';
 import { Ionicons } from 'expo-vector-icons';
 import styles from './styles';
 import { useNavigation } from '@react-navigation/native';
 import AuthContext from '../../hooks/useAuth';
+import api from '../../services/api';
+import { useCredentials } from '../../hooks/useCredentials';
 
 
 const Header = () => {
 
     const navigation = useNavigation();
     const { user } = useContext(AuthContext);
+    const { token, userId } = useCredentials();
 
-    return(
+
+    return (
             <View style={styles.header}>
                 <View style={styles.userSection}>
                     <TouchableOpacity onPress={() => navigation.navigate('Home', { screen: 'Profile' } )} >

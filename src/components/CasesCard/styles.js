@@ -1,6 +1,7 @@
 import { StyleSheet, Dimensions } from 'react-native';
 
 const styles = StyleSheet.create({
+    
     cardContainer: {
         width: Dimensions.get('window').width - 55,
         height: 160,
@@ -42,7 +43,12 @@ const styles = StyleSheet.create({
     animation: {
         width: 24,
         height: 24
+    },
+    list: {
+        zIndex: -2,
+        paddingBottom: 100,
     }
+
 });
 
 export default styles;

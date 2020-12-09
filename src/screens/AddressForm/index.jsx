@@ -4,18 +4,20 @@ import AuthContainer from '../../components/AuthContainer';
 import { Feather } from 'expo-vector-icons';
 import { RectButton } from 'react-native-gesture-handler';
 import { Picker } from '@react-native-community/picker';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import axios from 'axios';
 import styles from './styles';
 import Input from '../../components/Input';
 import MaskedInput from '../../components/MaskedInput';
 import api from '../../services/api';
-import { useGeolocation } from '../../hooks/useGeoLocation';
+import { useGeoLocation } from '../../hooks/useGeoLocation';
 
 const AddressForm = () => {
   
+    const route = useRoute();
+
     const navigation = useNavigation();
-    const { latitude, longitude } = useGeolocation();
+    const { latitude, longitude } = useGeoLocation();
 
     const [ufs, setUfs] = useState([]);
     const [cities, setCities] = useState([]);
@@ -53,14 +55,14 @@ const AddressForm = () => {
             complement: complementInputRef.current.value,
             street: streetInputRef.current.value,
             number,
-            colab_id: api.defaults.headers.colab_id
+            colab_id: route.params.colab_id
         };
         const hasErrors = validateData(addressData);
         if (hasErrors)
             return true;
         api.post('colabs/address/store', addressData).then(() => {
             navigation.navigate('SignIn');
-        }).catch((err) => {
+        }).catch(() => {
             alert('Não foi possível realizar o cadastro');
         });
     }
@@ -143,7 +145,7 @@ const AddressForm = () => {
                     <MaskedInput value={number} mask="number" style={styles.input} inputMaskChange={(text) => setNumber(text)}  placeholder="Número" keyboardType="number-pad" maxLength={5} />
                 </Animated.View>
                 <Animated.View style={[styles.inputWrapper, { opacity: fadeAnim, borderWidth: errors.complement ? 1.3: 0, borderColor: errors.complement ? '#ff2401': null }]}>
-                    <Input style={styles.input} ref={complementInputRef} onChangeText={text => complementInputRef.current.value = text} placeholder="Complemento" autoCapitalize="none" maxLength={25} />
+                    <Input style={styles.input} ref={complementInputRef} onChangeText={text => complementInputRef.current.value = text} placeholder="Complemento" autoCapitalize="none" maxLength={30} />
                 </Animated.View>
             </Animated.View>
             <Animated.View style={[styles.loginSection, { opacity: fadeAnim }]}>

@@ -138,7 +138,7 @@ const Tabs = ({
                     }}
             >
 
-                <Tab.Screen name='Cases' component={Cases} options={{ title: '', tabBarIcon:({color, size})=>
+                <Tab.Screen name='Cases' initialParams={{ section: 'Saúde' }} component={Cases} options={{ title: '', tabBarIcon:({color, size})=>
                             <Ionicons color={color} name="ios-hand" size={31}/>}}  
                 />
 

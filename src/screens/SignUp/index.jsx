@@ -21,7 +21,6 @@ const SignUp = () => {
 
     const push_token = useNotifications();
 
-    const [data, setData] = useState(null);
     const [errors, setErrors] = useState({
         name: false,
         email: false,
@@ -55,13 +54,11 @@ const SignUp = () => {
         if (hasErrors)
             return true;
         api.post('colabs/store', registerData).then((response) => {
-            setData(response.data);
-            navigation.navigate('AddressForm');
+            navigation.navigate('AddressForm', { colab_id: response.data });
         }).catch((err) => {
-            console.log(err.response.data)
             alert('Não foi possível realizar o cadastro');
+            console.log(err.response.data)
         });
-        api.defaults.headers.colab_id = data;
     }
 
     function validateData (data) {

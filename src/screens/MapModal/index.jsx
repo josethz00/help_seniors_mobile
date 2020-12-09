@@ -5,15 +5,18 @@ import * as Location from 'expo-location';
 import styles from './styles';
 import { RectButton } from 'react-native-gesture-handler';
 import { Feather } from 'expo-vector-icons';
-import { useNavigation } from '@react-navigation/native';
-import { useGeolocation } from '../../hooks/useGeoLocation';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { useGeoLocation } from '../../hooks/useGeoLocation';
 
 
 const MapModal = () => {
 
-    const { latitude, longitude } = useGeolocation();
-    const navigation = useNavigation()
-    
+    const navigation = useNavigation();
+
+    const route = useRoute();
+    const { item } = route.params;
+
+
     return(
         <View>
             {
@@ -22,11 +25,11 @@ const MapModal = () => {
                         provider={PROVIDER_GOOGLE} 
                         zoom={15}
                         style={styles.map} 
-                        initialRegion={{ latitude, longitude, latitudeDelta:0.0055, longitudeDelta:0.0055 }}
+                        initialRegion={{ latitude: item.latitude, longitude: item.longitude, latitudeDelta:0.0055, longitudeDelta:0.0055 }}
                     >
                         <Marker          
-                            coordinate={{ latitude, longitude }}
-                            onPress={() => navigation.navigate('Modal')}
+                            coordinate={{ latitude: item.latitude, longitude: item.longitude }}
+                            onPress={() => navigation.navigate('Modal', item)}
                         >
                             <View style={{ backgroundColor: '#fff', borderRadius: 16 }}>
                                 <Image source={require('../../assets/animations/marker.gif')} style={{ width: 75, height: 75 }} />

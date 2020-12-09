@@ -1,13 +1,29 @@
 import React from 'react';
 import Container from '../../components/Container';
-import { Image, Text, TouchableOpacity, View, ScrollView } from 'react-native';
+import { Image, Text, TouchableOpacity, View, ScrollView, Linking } from 'react-native';
 import styles from './styles'
 import { Feather } from 'expo-vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import * as MailComposer from 'expo-mail-composer';
 
 const Modal = ()=>{
 
     const navigation = useNavigation();
+
+    const route = useRoute();
+    const { item } = route.params;
+
+    function sendMail(){
+        MailComposer.composeAsync({
+            subject:`Ajuda no Caso: ${item.title}`,
+            recipients: ['josethomaz2003@gmail.com'],
+            body: 'Olá, me chamo José, estou enviando essa mensagem para combinar os detalhes da minha ajuda'
+        })
+    }
+
+    function sendSMS(){
+        Linking.openURL(`sms://+5511944952003?body=Olá, me chamo José, estou enviando essa mensagem para combinar os detalhes da minha ajuda`)
+    }
 
     return(
         <Container>
@@ -20,28 +36,27 @@ const Modal = ()=>{
             </View>
             <ScrollView showsVerticalScrollIndicator={false} style={styles.ScrollView}>
                 <View style={styles.photo}>
-                    <Image source={{ uri: 'https://images.unsplash.com/photo-1551861568-c0afa6653bc1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=100' }} style={styles.userPhoto} />
-                    <Text style={styles.username}>Erisvalda Pereira Rubia</Text>
+                    <Image source={{ uri: 'https://images.unsplash.com/photo-1533101585792-27f81a845550?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=100' }} style={styles.userPhoto} />
+                    <Text style={styles.username}>Garibaldi Neto</Text>
                 </View>
                 <View style={styles.incident}>
                     <Text style={[styles.incidentProperty,{marginTop:0}]}>
                         Idade:
                     </Text>
                     <Text style={styles.incidentValue}>
-                        70 anos
+                        {item.age}
                     </Text>
                     <Text style={styles.incidentProperty}>
                         Caso:
                     </Text>
                     <Text style={styles.incidentValue}>
-                        Compras no supermercado
+                        {item.title}
                     </Text>
                     <Text style={styles.incidentProperty}>
                         Descrição:
                     </Text>
                     <Text style={styles.incidentValue}>
-                        Esse cillum ullamco deserunt elit pariatur ut commodo est ex aliqua adipisicing Et et reprehenderit do aute ut sint sunt exercitation 
-                        in Dolore eu id amet sit tempor nisi sunt in eu dolor esse.
+                        {item.description}
                     </Text>  
                 </View>
                 <View style={styles.incident}>
@@ -49,19 +64,19 @@ const Modal = ()=>{
                         Cidade:
                     </Text>
                     <Text style={styles.incidentValue}>
-                        Taboão da Serra - SP
+                        {item.city}
                     </Text>
                     <Text style={styles.incidentProperty}>
                         Endereço:
                     </Text>
                     <Text style={styles.incidentValue}>
-                        Praça Miguel Ortega - nº 136
+                        {item.street} - nº {item.number}
                     </Text>
                     <Text style={styles.incidentProperty}>
                         Complemento
                     </Text>
                     <Text style={styles.incidentValue}> 
-                        Na frente da Cantina da Vovó
+                        {item.complement}
                     </Text>  
                 </View>
                 <View style={styles.contactBox}>
@@ -70,12 +85,12 @@ const Modal = ()=>{
 
                     <Text style={styles.heroDescription}>Entre em contato</Text>
                     <View style={styles.actions}>
-                        <TouchableOpacity style={styles.action} onPress={() => {}}>
+                        <TouchableOpacity style={styles.action} onPress={sendSMS}>
                             <Text style={styles.actionText}>
                                 SMS <Feather color="white" name="phone" size={24}/>
                             </Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.action} onPress={() => {}}>
+                        <TouchableOpacity style={styles.action} onPress={sendMail}>
                             <Text style={styles.actionText}>
                                 E-mail <Feather color="white" name="mail" size={24}/>
                             </Text>
