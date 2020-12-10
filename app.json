@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "mobile",
-    "slug": "mobile",
+    "name": "Help Seniors Colabs",
+    "slug": "HelpSeniorsColabs",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -17,10 +17,15 @@
       "**/*"
     ],
     "android": {
-      "useNextNotificationsApi": true
+      "useNextNotificationsApi": true,
+      "softwareKeyboardLayoutMode": "pan",
+      "package": "com.helpseniors.helpseniors",
+      "versionCode": 1
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.helpseniors.helpseniorscolabs",
+      "buildNumber": "1.0.0"
     },
     "web": {
       "favicon": "./assets/favicon.png"
