@@ -74,7 +74,7 @@ const SignUp = () => {
         if (!data.tel || data.tel.length < 8 || data.tel.length > 16) {
             err.phone = true;
         }
-        if (!data.password || data.password.length <= 8 || data.password.length > 30) {
+        if (!data.password || data.password.length < 8 || data.password.length > 30) {
             err.password = true;
         }
         if (!data.vf_password || data.vf_password !== data.password) {
