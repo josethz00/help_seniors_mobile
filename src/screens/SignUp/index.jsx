@@ -48,14 +48,14 @@ const SignUp = () => {
             tel,
             password: passwordInputRef.current.value,
             vf_password: vfPasswordInputRef.current.value,
-            push_token
+            push_token: 'aaa'
         };
         const hasErrors = validateData(registerData);
         if (hasErrors)
             return true;
         api.post('colabs/store', registerData).then((response) => {
             navigation.navigate('AddressForm', { colab_id: response.data });
-        }).catch(() => {
+        }).catch((_err) => {
             alert('Não foi possível realizar o cadastro');
         });
     }
@@ -74,7 +74,7 @@ const SignUp = () => {
         if (!data.tel || data.tel.length < 8 || data.tel.length > 16) {
             err.phone = true;
         }
-        if (!data.password || data.password.length < 6 || data.password.length > 30) {
+        if (!data.password || data.password.length <= 8 || data.password.length > 30) {
             err.password = true;
         }
         if (!data.vf_password || data.vf_password !== data.password) {
