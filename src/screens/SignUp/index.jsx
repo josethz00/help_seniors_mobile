@@ -48,14 +48,15 @@ const SignUp = () => {
             tel,
             password: passwordInputRef.current.value,
             vf_password: vfPasswordInputRef.current.value,
-            push_token: 'aaa'
+            push_token
         };
         const hasErrors = validateData(registerData);
         if (hasErrors)
             return true;
         api.post('colabs/store', registerData).then((response) => {
             navigation.navigate('AddressForm', { colab_id: response.data });
-        }).catch((_err) => {
+        }).catch((err) => {
+            console.log(err.response.data)
             alert('Não foi possível realizar o cadastro');
         });
     }
